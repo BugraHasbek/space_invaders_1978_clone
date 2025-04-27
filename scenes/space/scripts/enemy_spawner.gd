@@ -30,6 +30,7 @@ func spawn_enemies():
 	for row in range(rows):
 		for col in range(columns):
 			var enemy_instance = enemy_scene.instantiate()
+			enemy_instance.set_meta("grid_column", col)
 			var spawn_x = left_boundary + (col * column_spacing)
 			var spawn_y = top_boundary + row_spacing * row
 			

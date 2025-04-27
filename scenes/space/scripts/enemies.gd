@@ -3,12 +3,20 @@ extends Node2D
 enum MovementState { HORIZONTAL, VERTICAL }
 var state: int = MovementState.HORIZONTAL
 
+# Movement properties
 var horizontal_direction: int = 1             # 1 to move right, -1 to move left.
 @export var horizontal_speed: float = 100.0     # Horizontal speed in pixels per second.
 @export var vertical_speed: float = 40.0        # Vertical speed (when moving down) in pixels per second.
 @export var vertical_step: float = 20.0         # Fixed vertical displacement when a border is hit.
-
 var pending_vertical_movement: float = 0.0      # How much vertical distance remains to move in vertical state.
+
+# Attack properties
+@export var ammo_scene: PackedScene             # Reference to the Ammo scene.
+var attack_cooldown: float = 0.0
+@export var min_attack_interval: float = 1.0      # Minimum seconds between shots.
+@export var max_attack_interval: float = 3.0      # Maximum seconds between shots.
+var attacks_this_phase: int = 0                  
+@export var max_attacks_per_phase: int = 3        # Limited attacks during each horizontal phase.
 
 func _process(delta: float) -> void:
 	if get_child_count() == 0:
@@ -18,6 +26,7 @@ func _process(delta: float) -> void:
 		MovementState.HORIZONTAL:
 			print('Moving horizontally')
 			_move_horizontally(delta)
+			_handle_attacks(delta)
 		MovementState.VERTICAL:
 			print('Moving Vertically')
 			_move_vertically(delta)
@@ -66,3 +75,46 @@ func _move_vertically(delta: float) -> void:
 		# Finished moving downward—resume horizontal movement in the opposite direction.
 		state = MovementState.HORIZONTAL
 		horizontal_direction *= -1
+		# Reset attack counter and cooldown after vertical movement
+		attacks_this_phase = 0
+		attack_cooldown = randf_range(min_attack_interval, max_attack_interval)
+
+func _handle_attacks(delta: float) -> void:
+	# Only allow attacks if we haven't reached the limit yet.
+	if attacks_this_phase >= max_attacks_per_phase:
+		return
+
+	attack_cooldown -= delta
+	if attack_cooldown <= 0:
+		_attempt_attack()
+		# Reset attack cooldown for next shot
+		attack_cooldown = randf_range(min_attack_interval, max_attack_interval)
+
+func _attempt_attack() -> void:
+	# Determine the bottom-most enemy in each column by using a dictionary.
+	var bottom_enemies = {}
+	for enemy in get_children():
+		var col = enemy.get_meta("grid_column")
+		if not bottom_enemies.has(col) or enemy.position.y > bottom_enemies[col].position.y:
+			bottom_enemies[col] = enemy
+
+	var allowed_attackers = bottom_enemies.values()
+	if allowed_attackers.size() == 0:
+		return
+
+	# Pick one randomly:
+	var attacker = allowed_attackers[randi() % allowed_attackers.size()]
+	_spawn_ammo_from(attacker)
+	attacks_this_phase += 1
+
+func _spawn_ammo_from(attacker: Node2D) -> void:
+	# Instantiate Ammo and position it right below the enemy at its horizontal center.
+	var ammo_instance = ammo_scene.instantiate()
+	# To calculate proper placement, we assume the attacker has a Sprite2D child
+	var sprite = attacker.get_node("Sprite2D")
+	# Assume the Sprite2D uses its own scale; adjust as needed.
+	var sprite_size = sprite.texture.get_size() * sprite.scale
+	ammo_instance.position = attacker.position + Vector2(0, sprite_size.y / 2)
+	# Add the ammo to the current scene (or to a dedicated container for enemy projectiles)
+	get_tree().current_scene.add_child(ammo_instance)
+	
