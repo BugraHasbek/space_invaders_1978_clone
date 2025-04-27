@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://de2307fs06xci"]
+[gd_scene load_steps=5 format=3 uid="uid://de2307fs06xci"]
 
 [ext_resource type="PackedScene" uid="uid://sjba4lxhnfmy" path="res://entity/player/player.tscn" id="1_2482y"]
 [ext_resource type="Script" uid="uid://bea4c2geadg3v" path="res://scenes/space/scripts/enemy_spawner.gd" id="2_ugvpa"]
 [ext_resource type="PackedScene" uid="uid://ovffmfvcl3v7" path="res://entity/enemies/EnemyA/enemy_a.tscn" id="3_x217o"]
+[ext_resource type="Script" uid="uid://mipvu34gug6m" path="res://scenes/space/scripts/enemies.gd" id="4_718x5"]
 
 [node name="GameScene" type="Node2D"]
 
@@ -21,5 +22,6 @@ script = ExtResource("2_ugvpa")
 enemy_scene = ExtResource("3_x217o")
 
 [node name="Enemies" type="Node2D" parent="World"]
+script = ExtResource("4_718x5")
 
 [node name="HUD" type="CanvasLayer" parent="."]
