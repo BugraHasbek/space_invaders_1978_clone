@@ -24,11 +24,9 @@ func _process(delta: float) -> void:
 	
 	match state:
 		MovementState.HORIZONTAL:
-			print('Moving horizontally')
 			_move_horizontally(delta)
 			_handle_attacks(delta)
 		MovementState.VERTICAL:
-			print('Moving Vertically')
 			_move_vertically(delta)
 
 func _move_horizontally(delta: float) -> void:
@@ -110,10 +108,12 @@ func _attempt_attack() -> void:
 func _spawn_ammo_from(attacker: Node2D) -> void:
 	# Instantiate Ammo and position it right below the enemy at its horizontal center.
 	var ammo_instance = ammo_scene.instantiate()
-	# To calculate proper placement, we assume the attacker has a Sprite2D child
-	var sprite = attacker.get_node("Sprite2D")
-	# Assume the Sprite2D uses its own scale; adjust as needed.
-	var sprite_size = sprite.texture.get_size() * sprite.scale
+	# To calculate proper placement, we assume the attacker has a AnimatedSprite2D child
+	var sprite: AnimatedSprite2D = attacker.get_node("AnimatedSprite2D") as AnimatedSprite2D
+	# Retrieve the current texture from the sprite's current animation and frame.
+	var texture = sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+	# Calculate the sprite size with scale taken into account.
+	var sprite_size = texture.get_size() * sprite.scale
 	ammo_instance.position = attacker.position + Vector2(0, sprite_size.y / 2)
 	# Add the ammo to the current scene (or to a dedicated container for enemy projectiles)
 	get_tree().current_scene.add_child(ammo_instance)
