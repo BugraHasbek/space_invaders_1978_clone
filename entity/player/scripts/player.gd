@@ -5,9 +5,14 @@ const RELATIVE_HORIZONTAL_SPEED  : float = 0.5    # screen size per second
 signal player_died
 
 @onready var sprite = $Sprite2D
+@export var laser_scene: PackedScene
+
 
 func _process(delta: float) -> void:
 	move_player(delta)
+	
+	if Input.is_action_just_pressed("fire"):
+		fire_laser()
 
 ## Moves the player horizontally based on player input.
 ## 
@@ -33,6 +38,23 @@ func move_player(delta: float) -> void:
 	var max_x = get_viewport_rect().size.x - (sprite_width / 2)  
 	
 	position.x = clamp(position.x, min_x, max_x)
+
+func fire_laser() -> void:
+	if not laser_scene:
+		print("Error: Laser scene not assigned!")
+		return
+
+	# Instantiate laser instance
+	var laser_instance = laser_scene.instantiate()
+	
+	var sprite_size = sprite.texture.get_size() * sprite.scale
+
+	# Position the laser at the top-center of the player
+	laser_instance.position = position + Vector2(0, -sprite_size.y / 2)
+	
+	# Add laser instance to the current scene
+	get_tree().current_scene.add_child(laser_instance)
+
 
 func _on_area_entered(area: Area2D) -> void:
 	# Check if the incoming area belongs to either the enemy or enemy_laser group.

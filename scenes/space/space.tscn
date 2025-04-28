@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://de2307fs06xci"]
+[gd_scene load_steps=12 format=3 uid="uid://de2307fs06xci"]
 
 [ext_resource type="PackedScene" uid="uid://sjba4lxhnfmy" path="res://entity/player/player.tscn" id="1_2482y"]
 [ext_resource type="Script" uid="uid://dg80a7qgqvait" path="res://scenes/space/scripts/game_scene.gd" id="1_n6hgd"]
 [ext_resource type="Script" uid="uid://bea4c2geadg3v" path="res://scenes/space/scripts/enemy_spawner.gd" id="2_ugvpa"]
+[ext_resource type="PackedScene" uid="uid://1l1n1e7psict" path="res://entity/weapons/player/player_laser.tscn" id="3_npeeh"]
 [ext_resource type="PackedScene" uid="uid://ovffmfvcl3v7" path="res://entity/enemies/EnemyA/enemy_a.tscn" id="3_x217o"]
 [ext_resource type="Script" uid="uid://mipvu34gug6m" path="res://scenes/space/scripts/enemies.gd" id="4_718x5"]
 [ext_resource type="PackedScene" uid="uid://ci5q1yuexau5f" path="res://entity/weapons/enemy/enemy_laser.tscn" id="5_0a2q3"]
@@ -40,6 +41,7 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="World" instance=ExtResource("1_2482y")]
 position = Vector2(1272, 1210)
+laser_scene = ExtResource("3_npeeh")
 
 [node name="EnemySpawner" type="Node2D" parent="World"]
 script = ExtResource("2_ugvpa")
