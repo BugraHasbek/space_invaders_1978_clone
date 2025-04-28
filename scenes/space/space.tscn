@@ -1,8 +1,34 @@
-[gd_scene load_steps=2 format=3 uid="uid://de2307fs06xci"]
+[gd_scene load_steps=11 format=3 uid="uid://de2307fs06xci"]
 
 [ext_resource type="PackedScene" uid="uid://sjba4lxhnfmy" path="res://entity/player/player.tscn" id="1_2482y"]
+[ext_resource type="Script" uid="uid://dg80a7qgqvait" path="res://scenes/space/scripts/game_scene.gd" id="1_n6hgd"]
+[ext_resource type="Script" uid="uid://bea4c2geadg3v" path="res://scenes/space/scripts/enemy_spawner.gd" id="2_ugvpa"]
+[ext_resource type="PackedScene" uid="uid://ovffmfvcl3v7" path="res://entity/enemies/EnemyA/enemy_a.tscn" id="3_x217o"]
+[ext_resource type="Script" uid="uid://mipvu34gug6m" path="res://scenes/space/scripts/enemies.gd" id="4_718x5"]
+[ext_resource type="PackedScene" uid="uid://ci5q1yuexau5f" path="res://entity/weapons/enemy/enemy_laser.tscn" id="5_0a2q3"]
+[ext_resource type="Script" uid="uid://bqkoyu533gkar" path="res://scenes/space/scripts/hud.gd" id="7_wfdyj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wfdyj"]
+size = Vector2(2382, 7)
+
+[sub_resource type="FontFile" id="FontFile_0a2q3"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_n6hgd"]
+font = SubResource("FontFile_0a2q3")
+font_size = 40
 
 [node name="GameScene" type="Node2D"]
+script = ExtResource("1_n6hgd")
 
 [node name="World" type="Node2D" parent="."]
 
@@ -10,8 +36,39 @@
 offset_right = 2560.0
 offset_bottom = 1440.0
 color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="World" instance=ExtResource("1_2482y")]
-position = Vector2(1272, 1400)
+position = Vector2(1272, 1210)
+
+[node name="EnemySpawner" type="Node2D" parent="World"]
+script = ExtResource("2_ugvpa")
+enemy_scene = ExtResource("3_x217o")
+
+[node name="Enemies" type="Node2D" parent="World"]
+script = ExtResource("4_718x5")
+ammo_scene = ExtResource("5_0a2q3")
+
+[node name="BottomBoundary" type="Area2D" parent="World" groups=["boundary"]]
+position = Vector2(116, 1301)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/BottomBoundary"]
+position = Vector2(1181, 1.5)
+shape = SubResource("RectangleShape2D_wfdyj")
+
+[node name="ColorRect" type="ColorRect" parent="World/BottomBoundary"]
+offset_right = 2371.0
+offset_bottom = 3.0
+color = Color(0, 1, 0, 1)
 
 [node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("7_wfdyj")
+
+[node name="GameOverLabel" type="Label" parent="HUD"]
+visible = false
+offset_left = 1120.0
+offset_top = 615.0
+offset_right = 1407.0
+offset_bottom = 698.0
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_n6hgd")

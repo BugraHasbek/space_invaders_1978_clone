@@ -2,6 +2,8 @@ extends Area2D
 
 const RELATIVE_HORIZONTAL_SPEED  : float = 0.5    # screen size per second
 
+signal player_died
+
 @onready var sprite = $Sprite2D
 
 func _process(delta: float) -> void:
@@ -31,3 +33,16 @@ func move_player(delta: float) -> void:
 	var max_x = get_viewport_rect().size.x - (sprite_width / 2)  
 	
 	position.x = clamp(position.x, min_x, max_x)
+
+func _on_area_entered(area: Area2D) -> void:
+	# Check if the incoming area belongs to either the enemy or enemy_laser group.
+	if area.is_in_group("enemy"):
+		# Handle collision response, e.g., reduce health or trigger a hit event.
+		_handle_player_hit(area)
+		
+		## IDEA: if player has multiple lifes then it might make more sense to call queue_free from GameScene
+		## alternatively we can make life count an autoload and make player class aware of how many lifes it has remaining
+		self.queue_free()
+
+func _handle_player_hit(area: Area2D) -> void:
+	emit_signal("player_died")

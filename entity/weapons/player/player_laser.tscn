@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://1l1n1e7psict"]
+
+[ext_resource type="Texture2D" uid="uid://c7ujlu8hye2xv" path="res://entity/weapons/player/assets/player laser.png" id="1_0cp08"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_poolb"]
+radius = 2.0
+height = 10.0
+
+[node name="PlayerLaser" type="Area2D" groups=["player"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0cp08")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_poolb")

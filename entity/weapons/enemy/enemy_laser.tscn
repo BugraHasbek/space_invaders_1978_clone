@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci5q1yuexau5f"]
+
+[ext_resource type="Script" uid="uid://bxhgavbmjjfgn" path="res://entity/weapons/enemy/scripts/enemy_laser.gd" id="1_f0k4w"]
+[ext_resource type="Texture2D" uid="uid://cix2qk1jnkh7u" path="res://entity/weapons/enemy/assets/enemy laser.png" id="1_kwxyd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kwxyd"]
+radius = 2.0
+height = 10.0
+
+[node name="EnemyLaser" type="Area2D" groups=["enemy"]]
+script = ExtResource("1_f0k4w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kwxyd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_kwxyd")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
