@@ -7,7 +7,7 @@
 radius = 2.0
 height = 10.0
 
-[node name="EnemyLaser" type="Area2D"]
+[node name="EnemyLaser" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_f0k4w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -15,3 +15,5 @@ texture = ExtResource("1_kwxyd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_kwxyd")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

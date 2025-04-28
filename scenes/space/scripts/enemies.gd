@@ -13,8 +13,8 @@ var pending_vertical_movement: float = 0.0      # How much vertical distance rem
 # Attack properties
 @export var ammo_scene: PackedScene             # Reference to the Ammo scene.
 var attack_cooldown: float = 0.0
-@export var min_attack_interval: float = 1.0      # Minimum seconds between shots.
-@export var max_attack_interval: float = 3.0      # Maximum seconds between shots.
+@export var min_attack_interval: float = 0.5      # Minimum seconds between shots.
+@export var max_attack_interval: float = 2.0      # Maximum seconds between shots.
 var attacks_this_phase: int = 0                  
 @export var max_attacks_per_phase: int = 3        # Limited attacks during each horizontal phase.
 
