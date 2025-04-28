@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=3 uid="uid://de2307fs06xci"]
 
-[ext_resource type="PackedScene" uid="uid://sjba4lxhnfmy" path="res://entity/player/player.tscn" id="1_2482y"]
-[ext_resource type="Script" uid="uid://dg80a7qgqvait" path="res://scenes/space/scripts/game_scene.gd" id="1_n6hgd"]
-[ext_resource type="Script" uid="uid://bea4c2geadg3v" path="res://scenes/space/scripts/enemy_spawner.gd" id="2_ugvpa"]
-[ext_resource type="PackedScene" uid="uid://1l1n1e7psict" path="res://entity/weapons/player/player_laser.tscn" id="3_npeeh"]
-[ext_resource type="PackedScene" uid="uid://ovffmfvcl3v7" path="res://entity/enemies/EnemyA/enemy_a.tscn" id="3_x217o"]
-[ext_resource type="Script" uid="uid://mipvu34gug6m" path="res://scenes/space/scripts/enemies.gd" id="4_718x5"]
-[ext_resource type="PackedScene" uid="uid://ci5q1yuexau5f" path="res://entity/weapons/enemy/enemy_laser.tscn" id="5_0a2q3"]
-[ext_resource type="Script" uid="uid://bqkoyu533gkar" path="res://scenes/space/scripts/hud.gd" id="7_wfdyj"]
+[ext_resource type="Script" uid="uid://dg80a7qgqvait" path="res://scenes/game_scene/scripts/game_scene.gd" id="1_2jem7"]
+[ext_resource type="PackedScene" uid="uid://sjba4lxhnfmy" path="res://entity/player/player.tscn" id="2_jrm3e"]
+[ext_resource type="PackedScene" uid="uid://1l1n1e7psict" path="res://entity/weapons/player/player_laser.tscn" id="3_vtk2k"]
+[ext_resource type="Script" uid="uid://bea4c2geadg3v" path="res://scenes/game_scene/scripts/enemy_spawner.gd" id="4_5cu0n"]
+[ext_resource type="PackedScene" uid="uid://ovffmfvcl3v7" path="res://entity/enemies/EnemyA/enemy_a.tscn" id="5_fu7id"]
+[ext_resource type="Script" uid="uid://mipvu34gug6m" path="res://scenes/game_scene/scripts/enemies.gd" id="6_cnmyv"]
+[ext_resource type="PackedScene" uid="uid://ci5q1yuexau5f" path="res://entity/weapons/enemy/enemy_laser.tscn" id="7_wdc2h"]
+[ext_resource type="Script" uid="uid://bqkoyu533gkar" path="res://scenes/game_scene/scripts/hud.gd" id="8_i2dcl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wfdyj"]
 size = Vector2(2382, 7)
@@ -29,7 +29,7 @@ font = SubResource("FontFile_0a2q3")
 font_size = 40
 
 [node name="GameScene" type="Node2D"]
-script = ExtResource("1_n6hgd")
+script = ExtResource("1_2jem7")
 
 [node name="World" type="Node2D" parent="."]
 
@@ -39,17 +39,17 @@ offset_bottom = 1440.0
 color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="World" instance=ExtResource("1_2482y")]
+[node name="Player" parent="World" instance=ExtResource("2_jrm3e")]
 position = Vector2(1272, 1210)
-laser_scene = ExtResource("3_npeeh")
+laser_scene = ExtResource("3_vtk2k")
 
 [node name="EnemySpawner" type="Node2D" parent="World"]
-script = ExtResource("2_ugvpa")
-enemy_scene = ExtResource("3_x217o")
+script = ExtResource("4_5cu0n")
+enemy_scene = ExtResource("5_fu7id")
 
 [node name="Enemies" type="Node2D" parent="World"]
-script = ExtResource("4_718x5")
-ammo_scene = ExtResource("5_0a2q3")
+script = ExtResource("6_cnmyv")
+ammo_scene = ExtResource("7_wdc2h")
 
 [node name="BottomBoundary" type="Area2D" parent="World" groups=["boundary"]]
 position = Vector2(116, 1301)
@@ -64,7 +64,7 @@ offset_bottom = 3.0
 color = Color(0, 1, 0, 1)
 
 [node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("7_wfdyj")
+script = ExtResource("8_i2dcl")
 
 [node name="GameOverLabel" type="Label" parent="HUD"]
 visible = false
