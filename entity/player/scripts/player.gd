@@ -47,7 +47,6 @@ func fire_laser() -> void:
 	# Instantiate laser instance
 	var laser_instance = laser_scene.instantiate()
 	
-	# var sprite = get_node("Sprite2D") 
 	var sprite_size = sprite.texture.get_size() * sprite.scale
 
 	# Position the laser at the top-center of the player
