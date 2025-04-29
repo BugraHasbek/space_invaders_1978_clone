@@ -9,6 +9,9 @@ signal player_died
 
 
 func _process(delta: float) -> void:
+	if not GameState.is_game_running:
+		return
+	
 	move_player(delta)
 	
 	if Input.is_action_just_pressed("fire"):

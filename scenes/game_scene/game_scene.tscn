@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://de2307fs06xci"]
+[gd_scene load_steps=19 format=3 uid="uid://de2307fs06xci"]
 
 [ext_resource type="Script" uid="uid://dg80a7qgqvait" path="res://scenes/game_scene/scripts/game_scene.gd" id="1_2jem7"]
 [ext_resource type="PackedScene" uid="uid://sjba4lxhnfmy" path="res://entity/player/player.tscn" id="2_jrm3e"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bhtqe12f0ah76" path="res://scenes/game_scene/scripts/score_label.gd" id="10_3di6p"]
 [ext_resource type="Script" uid="uid://c4wycjoopakxg" path="res://scenes/game_scene/scripts/lives_container.gd" id="10_dgii4"]
 [ext_resource type="PackedScene" uid="uid://dk63u8jjrpgn0" path="res://hud/LifeIcon.tscn" id="11_hqmgi"]
+[ext_resource type="Script" uid="uid://bau112201uuv5" path="res://scenes/game_scene/scripts/max_score_label.gd" id="11_jytbd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wfdyj"]
 size = Vector2(2382, 7)
@@ -27,10 +28,15 @@ cache/0/40/0/descent = 0.0
 cache/0/40/0/underline_position = 0.0
 cache/0/40/0/underline_thickness = 0.0
 cache/0/40/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_n6hgd"]
 font = SubResource("FontFile_0a2q3")
-font_size = 40
+font_size = 50
 
 [sub_resource type="FontFile" id="FontFile_j6s53"]
 cache/0/16/0/ascent = 0.0
@@ -88,10 +94,10 @@ script = ExtResource("8_i2dcl")
 
 [node name="GameOverLabel" type="Label" parent="HUD"]
 visible = false
-offset_left = 1120.0
-offset_top = 615.0
-offset_right = 1407.0
-offset_bottom = 698.0
+offset_left = 1068.0
+offset_top = 42.0
+offset_right = 1355.0
+offset_bottom = 125.0
 text = "GAME OVER"
 label_settings = SubResource("LabelSettings_n6hgd")
 
@@ -118,6 +124,15 @@ offset_bottom = 1403.0
 text = "SCORE: 0"
 label_settings = SubResource("LabelSettings_dgii4")
 script = ExtResource("10_3di6p")
+
+[node name="MaxScoreLabel" type="Label" parent="HUD"]
+offset_left = 977.0
+offset_top = 1337.0
+offset_right = 1359.0
+offset_bottom = 1406.0
+text = "MAX SCORE: 0"
+label_settings = SubResource("LabelSettings_dgii4")
+script = ExtResource("11_jytbd")
 
 [node name="LivesContainer" type="Node2D" parent="HUD"]
 script = ExtResource("10_dgii4")
