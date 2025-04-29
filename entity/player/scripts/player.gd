@@ -63,8 +63,8 @@ func _on_area_entered(area: Area2D) -> void:
 	# Check if the incoming area belongs to either the enemy or enemy_laser group.
 	if area.is_in_group("enemy"):
 		# Handle collision response, e.g., reduce health or trigger a hit event.
-		_handle_player_hit(area)
+		_handle_player_hit()
 
-func _handle_player_hit(area: Area2D) -> void:
-	emit_signal("player_died")
+func _handle_player_hit() -> void:
 	GameState.player_life_count -= 1
+	emit_signal("player_died")
