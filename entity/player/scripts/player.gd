@@ -61,10 +61,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy"):
 		# Handle collision response, e.g., reduce health or trigger a hit event.
 		_handle_player_hit(area)
-		
-		## IDEA: if player has multiple lifes then it might make more sense to call queue_free from GameScene
-		## alternatively we can make life count an autoload and make player class aware of how many lifes it has remaining
-		self.queue_free()
 
 func _handle_player_hit(area: Area2D) -> void:
 	emit_signal("player_died")
+	GameState.player_life_count -= 1
