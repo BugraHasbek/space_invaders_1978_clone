@@ -8,3 +8,6 @@ func player_died() -> void:
 
 func hide_game_over() -> void:
 	$GameOverLabel.visible = false
+
+func update_score() -> void:
+	$ScoreLabel.update_score()

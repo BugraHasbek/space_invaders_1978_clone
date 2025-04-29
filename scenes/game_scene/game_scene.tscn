@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://de2307fs06xci"]
+[gd_scene load_steps=18 format=3 uid="uid://de2307fs06xci"]
 
 [ext_resource type="Script" uid="uid://dg80a7qgqvait" path="res://scenes/game_scene/scripts/game_scene.gd" id="1_2jem7"]
 [ext_resource type="PackedScene" uid="uid://sjba4lxhnfmy" path="res://entity/player/player.tscn" id="2_jrm3e"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ci5q1yuexau5f" path="res://entity/weapons/enemy/enemy_laser.tscn" id="7_wdc2h"]
 [ext_resource type="Script" uid="uid://bqkoyu533gkar" path="res://scenes/game_scene/scripts/hud.gd" id="8_i2dcl"]
 [ext_resource type="Texture2D" uid="uid://dkch5fb2nygcu" path="res://entity/player/assets/Player.png" id="9_j6s53"]
+[ext_resource type="Script" uid="uid://bhtqe12f0ah76" path="res://scenes/game_scene/scripts/score_label.gd" id="10_3di6p"]
 [ext_resource type="Script" uid="uid://c4wycjoopakxg" path="res://scenes/game_scene/scripts/lives_container.gd" id="10_dgii4"]
 [ext_resource type="PackedScene" uid="uid://dk63u8jjrpgn0" path="res://hud/LifeIcon.tscn" id="11_hqmgi"]
 
@@ -116,6 +117,7 @@ offset_right = 804.0
 offset_bottom = 1403.0
 text = "SCORE: 0"
 label_settings = SubResource("LabelSettings_dgii4")
+script = ExtResource("10_3di6p")
 
 [node name="LivesContainer" type="Node2D" parent="HUD"]
 script = ExtResource("10_dgii4")

@@ -40,5 +40,5 @@ func spawn_enemies():
 			enemy_instance.connect("enemy_died", _on_enemy_died)
 			enemies_container.add_child(enemy_instance)
 
-func _on_enemy_died() -> void:
-	emit_signal("enemy_died")
+func _on_enemy_died(score_value: int) -> void:
+	emit_signal("enemy_died", score_value)

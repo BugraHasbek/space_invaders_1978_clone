@@ -10,5 +10,6 @@ func _on_player_died() -> void:
 	if GameState.player_life_count <= 0:
 		$HUD.display_game_over()
 
-func _on_enemy_died() -> void:
-	$HUD.display_game_over()
+func _on_enemy_died(score_value: int) -> void:
+	GameState.score += score_value
+	$HUD.update_score()
