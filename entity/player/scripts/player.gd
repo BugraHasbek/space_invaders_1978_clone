@@ -3,8 +3,9 @@ extends Area2D
 const RELATIVE_HORIZONTAL_SPEED  : float = 0.5    # screen size per second
 
 signal player_died
+signal player_death_animation_finished
 
-@onready var sprite = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @export var laser_scene: PackedScene
 
 
@@ -34,7 +35,8 @@ func move_player(delta: float) -> void:
 	# Apply movement
 	position.x += horizontal_displacement
 	
-	var sprite_width = sprite.get_rect().size.x * sprite.global_scale.x
+	var texture = sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+	var sprite_width = texture.get_size().x * sprite.global_scale.x
 	
 	# Enforce screen boundaries
 	var min_x = 0 + (sprite_width / 2)  # Adjust for player width
@@ -50,7 +52,8 @@ func fire_laser() -> void:
 	# Instantiate laser instance
 	var laser_instance = laser_scene.instantiate()
 	
-	var sprite_size = sprite.texture.get_size() * sprite.scale
+	var texture = sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+	var sprite_size = texture.get_size() * sprite.scale
 
 	# Position the laser at the top-center of the player
 	laser_instance.position = position + Vector2(0, -sprite_size.y / 2)
@@ -60,11 +63,18 @@ func fire_laser() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	# Check if the incoming area belongs to either the enemy or enemy_laser group.
+	# player collided with enemy ufo or player is hit by enemy fire
 	if area.is_in_group("enemy"):
-		# Handle collision response, e.g., reduce health or trigger a hit event.
-		_handle_player_hit()
+		die()
 
-func _handle_player_hit() -> void:
+func die() -> void:
 	GameState.player_life_count -= 1
+	sprite.play("death")
 	emit_signal("player_died")
+
+func _on_death_animation_finished() -> void:
+	emit_signal("player_death_animation_finished")
+
+func revive() -> void:
+	sprite.stop()
+	sprite.frame = 0
