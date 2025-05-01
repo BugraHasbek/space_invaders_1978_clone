@@ -29,5 +29,5 @@ func _on_death_animation_finished() -> void:
 	queue_free()
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("player") or area.is_in_group("boundary"):
+	if not area.is_in_group("enemy"):
 		die()

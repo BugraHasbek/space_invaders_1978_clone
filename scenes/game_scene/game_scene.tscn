@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://de2307fs06xci"]
+[gd_scene load_steps=20 format=3 uid="uid://de2307fs06xci"]
 
 [ext_resource type="Script" uid="uid://dg80a7qgqvait" path="res://scenes/game_scene/scripts/game_scene.gd" id="1_2jem7"]
 [ext_resource type="PackedScene" uid="uid://sjba4lxhnfmy" path="res://entity/player/player.tscn" id="2_jrm3e"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://c4wycjoopakxg" path="res://scenes/game_scene/scripts/lives_container.gd" id="10_dgii4"]
 [ext_resource type="PackedScene" uid="uid://dk63u8jjrpgn0" path="res://hud/LifeIcon.tscn" id="11_hqmgi"]
 [ext_resource type="Script" uid="uid://bau112201uuv5" path="res://scenes/game_scene/scripts/max_score_label.gd" id="11_jytbd"]
+[ext_resource type="PackedScene" uid="uid://b2say0xtjryxx" path="res://entity/skyline/GalataKulesi/galata_kulesi.tscn" id="14_iprv4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wfdyj"]
 size = Vector2(2382, 7)
@@ -137,3 +138,6 @@ script = ExtResource("11_jytbd")
 [node name="LivesContainer" type="Node2D" parent="HUD"]
 script = ExtResource("10_dgii4")
 life_icon_scene = ExtResource("11_hqmgi")
+
+[node name="GalataKulesi" parent="." instance=ExtResource("14_iprv4")]
+position = Vector2(270, 987)

@@ -64,7 +64,7 @@ func fire_laser() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	# player collided with enemy ufo or player is hit by enemy fire
-	if area.is_in_group("enemy"):
+	if not area.is_in_group("player"):
 		die()
 
 func die() -> void:
