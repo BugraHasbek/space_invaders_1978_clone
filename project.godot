@@ -15,6 +15,10 @@ run/main_scene="uid://de2307fs06xci"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameState="*res://globals/game_state.gd"
+
 [display]
 
 window/size/viewport_width=2560
@@ -27,6 +31,7 @@ window/stretch/mode="viewport"
 enemy=""
 player=""
 boundary=""
+landmark=""
 
 [input]
 

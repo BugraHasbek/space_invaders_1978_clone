@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://b2say0xtjryxx"]
+
+[ext_resource type="Script" uid="uid://dfxw6rscgf352" path="res://entity/skyline/GalataKulesi/scripts/galata_kulesi.gd" id="1_lrepx"]
+[ext_resource type="Texture2D" uid="uid://du56xhv11t6o8" path="res://entity/skyline/GalataKulesi/assets/Galata Kulesi.png" id="1_vrvwy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrepx"]
+atlas = ExtResource("1_vrvwy")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qaix3"]
+atlas = ExtResource("1_vrvwy")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lj107"]
+atlas = ExtResource("1_vrvwy")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08yvo"]
+atlas = ExtResource("1_vrvwy")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8nci"]
+atlas = ExtResource("1_vrvwy")
+region = Rect2(1280, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qaix3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrepx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qaix3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lj107")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08yvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8nci")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vwoyj"]
+radius = 37.0
+height = 240.0
+
+[node name="GalataKulesi" type="Area2D" groups=["landmark"]]
+script = ExtResource("1_lrepx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_qaix3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["landmark"]]
+position = Vector2(-12, 5)
+shape = SubResource("CapsuleShape2D_vwoyj")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

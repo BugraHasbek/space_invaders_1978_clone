@@ -8,6 +8,8 @@ extends Node2D
 @export var screen_margin_x: float = 1.0 / 10.0  # Margin from left/right
 @export var screen_margin_y: float = 2.0 / 10.0  # Margin from top
 
+signal enemy_died
+
 func _process(delta: float) -> void:
 	spawn_enemies()
 
@@ -35,4 +37,8 @@ func spawn_enemies():
 			var spawn_y = top_boundary + row_spacing * row
 			
 			enemy_instance.position = Vector2(spawn_x, spawn_y)
+			enemy_instance.connect("enemy_died", _on_enemy_died)
 			enemies_container.add_child(enemy_instance)
+
+func _on_enemy_died(score_value: int) -> void:
+	emit_signal("enemy_died", score_value)

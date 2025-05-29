@@ -21,6 +21,9 @@ var attacks_this_phase: int = 0
 func _process(delta: float) -> void:
 	if get_child_count() == 0:
 		return  # No enemy to move.
+		
+	if not GameState.is_game_running:
+		return
 	
 	match state:
 		MovementState.HORIZONTAL:

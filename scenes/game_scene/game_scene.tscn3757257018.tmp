@@ -1,0 +1,122 @@
+[gd_scene load_steps=17 format=3 uid="uid://de2307fs06xci"]
+
+[ext_resource type="Script" uid="uid://dg80a7qgqvait" path="res://scenes/game_scene/scripts/game_scene.gd" id="1_2jem7"]
+[ext_resource type="PackedScene" uid="uid://sjba4lxhnfmy" path="res://entity/player/player.tscn" id="2_jrm3e"]
+[ext_resource type="PackedScene" uid="uid://1l1n1e7psict" path="res://entity/weapons/player/player_laser.tscn" id="3_vtk2k"]
+[ext_resource type="Script" uid="uid://bea4c2geadg3v" path="res://scenes/game_scene/scripts/enemy_spawner.gd" id="4_5cu0n"]
+[ext_resource type="PackedScene" uid="uid://ovffmfvcl3v7" path="res://entity/enemies/EnemyA/enemy_a.tscn" id="5_fu7id"]
+[ext_resource type="Script" uid="uid://mipvu34gug6m" path="res://scenes/game_scene/scripts/enemies.gd" id="6_cnmyv"]
+[ext_resource type="PackedScene" uid="uid://ci5q1yuexau5f" path="res://entity/weapons/enemy/enemy_laser.tscn" id="7_wdc2h"]
+[ext_resource type="Script" uid="uid://bqkoyu533gkar" path="res://scenes/game_scene/scripts/hud.gd" id="8_i2dcl"]
+[ext_resource type="Texture2D" uid="uid://dkch5fb2nygcu" path="res://entity/player/assets/Player.png" id="9_j6s53"]
+[ext_resource type="Script" uid="uid://c4wycjoopakxg" path="res://scenes/game_scene/scripts/lives_container.gd" id="10_dgii4"]
+[ext_resource type="PackedScene" uid="uid://dk63u8jjrpgn0" path="res://hud/LifeIcon.tscn" id="11_hqmgi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wfdyj"]
+size = Vector2(2382, 7)
+
+[sub_resource type="FontFile" id="FontFile_0a2q3"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_n6hgd"]
+font = SubResource("FontFile_0a2q3")
+font_size = 40
+
+[sub_resource type="FontFile" id="FontFile_j6s53"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/48/0/ascent = 0.0
+cache/0/48/0/descent = 0.0
+cache/0/48/0/underline_position = 0.0
+cache/0/48/0/underline_thickness = 0.0
+cache/0/48/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_dgii4"]
+font = SubResource("FontFile_j6s53")
+font_size = 48
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource("1_2jem7")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Background" type="ColorRect" parent="World"]
+offset_right = 2560.0
+offset_bottom = 1440.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="World" instance=ExtResource("2_jrm3e")]
+position = Vector2(1272, 1210)
+laser_scene = ExtResource("3_vtk2k")
+
+[node name="EnemySpawner" type="Node2D" parent="World"]
+script = ExtResource("4_5cu0n")
+enemy_scene = ExtResource("5_fu7id")
+
+[node name="Enemies" type="Node2D" parent="World"]
+script = ExtResource("6_cnmyv")
+ammo_scene = ExtResource("7_wdc2h")
+
+[node name="BottomBoundary" type="Area2D" parent="World" groups=["boundary"]]
+position = Vector2(116, 1301)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/BottomBoundary"]
+position = Vector2(1181, 1.5)
+shape = SubResource("RectangleShape2D_wfdyj")
+
+[node name="ColorRect" type="ColorRect" parent="World/BottomBoundary"]
+offset_right = 2371.0
+offset_bottom = 3.0
+color = Color(0, 1, 0, 1)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("8_i2dcl")
+
+[node name="GameOverLabel" type="Label" parent="HUD"]
+visible = false
+offset_left = 1120.0
+offset_top = 615.0
+offset_right = 1407.0
+offset_bottom = 698.0
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_n6hgd")
+
+[node name="ExtraLife1" type="Sprite2D" parent="HUD"]
+visible = false
+position = Vector2(132, 1368)
+texture = ExtResource("9_j6s53")
+
+[node name="ExtraLife2" type="Sprite2D" parent="HUD"]
+visible = false
+position = Vector2(175, 1368)
+texture = ExtResource("9_j6s53")
+
+[node name="ExtraLife3" type="Sprite2D" parent="HUD"]
+visible = false
+position = Vector2(217, 1368)
+texture = ExtResource("9_j6s53")
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 422.0
+offset_top = 1334.0
+offset_right = 804.0
+offset_bottom = 1403.0
+text = "SCORE: 0"
+label_settings = SubResource("LabelSettings_dgii4")
+
+[node name="LivesContainer" type="Node2D" parent="HUD"]
+script = ExtResource("10_dgii4")
+life_icon_scene = ExtResource("11_hqmgi")
